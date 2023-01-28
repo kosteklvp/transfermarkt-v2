@@ -14,4 +14,8 @@ public class Club {
   @JoinColumn(name = "leagueID")
   private League league;
 
+  public String getName() {
+    return name;
+  }
+
 }

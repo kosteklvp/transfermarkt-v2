@@ -1,6 +1,7 @@
 package com.kosteklvp.transfermarkt.view.player;
 
-import com.kosteklvp.transfermarkt.model.Player;
+import com.kosteklvp.transfermarkt.model.player.Player;
+import com.kosteklvp.transfermarkt.model.player.PlayerUtils;
 import com.kosteklvp.transfermarkt.repo.PlayerRepo;
 import com.kosteklvp.transfermarkt.view.main.MainLayout;
 import com.vaadin.flow.component.button.Button;
@@ -33,7 +34,7 @@ public class PlayerView extends VerticalLayout {
 
   private void configureGrid() {
     grid.setSizeFull();
-//        grid.setColumns("firstName", "lastName");
+    grid.setColumns(PlayerUtils.getGridColumns());
 
 
     grid.addColumn(contact -> "jeden").setHeader("Status");
