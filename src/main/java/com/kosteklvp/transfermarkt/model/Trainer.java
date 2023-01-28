@@ -1,10 +1,6 @@
-package pl.kosteklvp.transfermarkt.model;
+package com.kosteklvp.transfermarkt.model;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Trainer {

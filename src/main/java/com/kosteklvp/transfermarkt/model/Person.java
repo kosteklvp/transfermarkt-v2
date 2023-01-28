@@ -1,7 +1,7 @@
-package pl.kosteklvp.transfermarkt.model;
+package com.kosteklvp.transfermarkt.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class Person {
