@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class PlayerUtils {
 
   public static String[] getGridColumns() {
-    return Arrays.stream(PlayerColumn.values()).map(PlayerColumn::getLabel).toArray(String[]::new);
+    return Arrays.stream(PlayerColumn.values()).map(PlayerColumn::getHeader).toArray(String[]::new);
   }
 
 }

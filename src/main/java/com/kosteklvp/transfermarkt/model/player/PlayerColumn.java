@@ -15,7 +15,7 @@ public enum PlayerColumn {
   CURRENT_CLUB("Current club", Player::getClub),
   COUNTRY("Country", Player::getNation);
 
-  private final String label;
+  private final String header;
 
   private final ValueProvider<Player, String> valueProvider;
 

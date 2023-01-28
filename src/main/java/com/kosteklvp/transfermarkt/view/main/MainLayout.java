@@ -49,7 +49,7 @@ public class MainLayout extends AppLayout {
     HorizontalLayout drawerLayout = new HorizontalLayout();
     drawerLayout.setAlignItems(STRETCH);
 
-    drawerLayout.add(drawerItem.getIcon(), routerLink);
+    drawerLayout.add(drawerItem.getIcon().create(), routerLink);
 
     addToDrawer(drawerLayout);
   }
