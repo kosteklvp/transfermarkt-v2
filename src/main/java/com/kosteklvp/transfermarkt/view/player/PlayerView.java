@@ -11,6 +11,8 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import static com.kosteklvp.transfermarkt.view.component.OperationMode.ADD;
+
 @PageTitle("Players | Transfermarkt")
 @Route(value="players", layout = MainLayout.class)
 public class PlayerView extends VerticalLayout {
@@ -48,11 +50,11 @@ public class PlayerView extends VerticalLayout {
   }
 
   private void configureToolbar() {
-    Button buttonAdd = new Button("Add");
-    Button buttonChange = new Button("Change");
+    Button buttonAdd = new Button("Add", d -> new DialogPlayer(ADD).open());
+    Button buttonOpen = new Button("Open");
     Button buttonDelete = new Button("Delete");
 
-    add(new HorizontalLayout(buttonAdd, buttonChange, buttonDelete));
+    add(new HorizontalLayout(buttonAdd, buttonOpen, buttonDelete));
   }
 
 }
