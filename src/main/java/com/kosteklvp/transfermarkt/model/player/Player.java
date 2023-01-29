@@ -1,10 +1,10 @@
 package com.kosteklvp.transfermarkt.model.player;
 
 import com.kosteklvp.transfermarkt.model.Club;
+import com.kosteklvp.transfermarkt.model.Country;
 import com.kosteklvp.transfermarkt.model.Person;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 public class Player {
@@ -12,7 +12,7 @@ public class Player {
   @Id
   private int playerID;
 
-  private BigDecimal value;
+  private int value;
 
   @OneToOne()
   @JoinColumn(name = "personID")
@@ -22,24 +22,54 @@ public class Player {
   @JoinColumn(name = "clubID")
   private Club club;
 
-  String getFirstName() {
+  private PlayerPosition position;
+
+  public String getFirstName() {
     return person.getFirstName();
   }
 
-  String getLastName() {
+  public void setFirstName(String firstName) {
+    this.person.setFirstName(firstName);
+  }
+
+  public String getLastName() {
     return person.getLastName();
   }
 
-  String getClub() {
-    return club.getName();
+  public void setLastName(String lastName) {
+    this.person.setLastName(lastName);
   }
 
-  String getNation() {
-    return person.getNation().getName();
+  public Club getClub() {
+    return club;
   }
 
-  public BigDecimal getValue() {
+  public void setClub(Club club) {
+    this.club = club;
+  }
+
+  public Country getNationality() {
+    return person.getNationality();
+  }
+
+  public void setNationality(Country nationality) {
+    this.person.setNationality(nationality);
+  }
+
+  public int getValue() {
     return value;
+  }
+
+  public void setValue(int value) {
+    this.value = value;
+  }
+
+  public PlayerPosition getPosition() {
+    return position;
+  }
+
+  public void setPosition(PlayerPosition position) {
+    this.position = position;
   }
 
 }

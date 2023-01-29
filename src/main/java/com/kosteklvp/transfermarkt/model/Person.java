@@ -1,6 +1,7 @@
 package com.kosteklvp.transfermarkt.model;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,6 +10,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @Getter
+@Setter
 public class Person {
 
   @Id
@@ -20,10 +22,6 @@ public class Person {
 
   @ManyToOne()
   @JoinColumn(name = "countryID")
-  private Country nation;
-
-  public Country getNation() {
-    return nation;
-  }
+  private Country nationality;
 
 }

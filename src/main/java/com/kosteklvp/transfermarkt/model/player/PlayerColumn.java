@@ -12,8 +12,8 @@ import static org.apache.commons.lang3.StringUtils.SPACE;
 public enum PlayerColumn {
   NAME("", player -> StringUtils.join(player.getFirstName(), SPACE, player.getLastName())),
   VALUE("Value", player -> String.valueOf(player.getValue())),
-  CURRENT_CLUB("Current club", Player::getClub),
-  COUNTRY("Country", Player::getNation);
+  CURRENT_CLUB("Current club", player -> player.getClub().getName()),
+  COUNTRY("Country", player -> player.getNationality().getName());
 
   private final String header;
 

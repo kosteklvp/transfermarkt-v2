@@ -50,7 +50,7 @@ public class PlayerView extends VerticalLayout {
   }
 
   private void configureToolbar() {
-    Button buttonAdd = new Button("Add", d -> new DialogPlayer(ADD).open());
+    Button buttonAdd = new Button("Add", d -> new DialogPlayer(ADD, playerRepo).open());
     Button buttonOpen = new Button("Open");
     Button buttonDelete = new Button("Delete");
 
