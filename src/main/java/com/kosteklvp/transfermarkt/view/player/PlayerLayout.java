@@ -4,6 +4,10 @@ import com.kosteklvp.transfermarkt.model.Club;
 import com.kosteklvp.transfermarkt.model.Country;
 import com.kosteklvp.transfermarkt.model.player.Player;
 import com.kosteklvp.transfermarkt.model.player.PlayerPosition;
+import com.kosteklvp.transfermarkt.repo.ClubRepo;
+import com.kosteklvp.transfermarkt.repo.CountryRepo;
+import com.kosteklvp.transfermarkt.view.component.ComboBoxFactory;
+import com.kosteklvp.transfermarkt.view.component.NotificationFactory;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
@@ -18,16 +22,22 @@ import static com.vaadin.flow.component.textfield.TextFieldVariant.LUMO_ALIGN_RI
 
 public class PlayerLayout extends FlexLayout {
 
-  private final TextField textFieldFirstName = new TextField("First name");
-  private final TextField textFieldLastName = new TextField("Last name");
-  private final IntegerField integerFieldValue = new IntegerField("Value");
-  private final ComboBox<Club> comboBoxClub = new ComboBox<>("Club");
-  private final Select<PlayerPosition> selectPosition = new Select<>();
-  private final ComboBox<Country> comboBoxNationality = new ComboBox<>("Nationality");
+  private TextField textFieldFirstName = new TextField("First name");
+  private TextField textFieldLastName = new TextField("Last name");
+  private IntegerField integerFieldValue = new IntegerField("Value");
+  private ComboBox<Club> comboBoxClub;
+  private Select<PlayerPosition> selectPosition = new Select<>();
+  private ComboBox<Country> comboBoxNationality = new ComboBox<>("Nationality");
 
   private final Binder<Player> binder = new Binder<>();
 
-  public PlayerLayout() {
+  private final ClubRepo clubRepo;
+  private final CountryRepo countryRepo;
+
+  public PlayerLayout(ClubRepo clubRepo, CountryRepo countryRepo) {
+    this.clubRepo = clubRepo;
+    this.countryRepo = countryRepo;
+
     initialize();
     configureBinder();
   }
@@ -37,16 +47,18 @@ public class PlayerLayout extends FlexLayout {
 
     textFieldFirstName.setWidth("40%");
     textFieldLastName.setWidth("60%");
+
+    comboBoxClub = ComboBoxFactory.createComboBoxClub(clubRepo.findAll());
     comboBoxClub.setWidth("100%");
+
     comboBoxNationality.setWidth("100%");
+    comboBoxNationality.setAllowCustomValue(true);
 
     Div euroSuffix = new Div();
     euroSuffix.setText("€");
     integerFieldValue.setSuffixComponent(euroSuffix);
     integerFieldValue.addThemeVariants(LUMO_ALIGN_RIGHT);
     integerFieldValue.setWidth("150px");
-    integerFieldValue.setMin(0);
-    integerFieldValue.setMax(12);
 
     selectPosition.setItems(PlayerPosition.values());
     selectPosition.setLabel("Position");
@@ -84,9 +96,15 @@ public class PlayerLayout extends FlexLayout {
             .bind(Player::getPosition, Player::setPosition);
   }
 
-  Player getPlayer() throws ValidationException {
+  Player getPlayer() {
     Player player = new Player();
-    binder.writeBean(player);
+
+    try {
+      binder.writeBean(player);
+    } catch (ValidationException e) {
+      NotificationFactory.error("All required fields must be filled");
+      throw new RuntimeException(e);
+    }
 
     return player;
   }

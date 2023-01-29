@@ -3,17 +3,17 @@ package com.kosteklvp.transfermarkt.view.player;
 import com.kosteklvp.transfermarkt.repo.PlayerRepo;
 import com.kosteklvp.transfermarkt.view.component.ActionDialog;
 import com.kosteklvp.transfermarkt.view.component.OperationMode;
-import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.data.binder.ValidationException;
+import org.springframework.beans.factory.ObjectProvider;
 
 public class DialogPlayer extends ActionDialog {
 
-  private final PlayerLayout playerLayout = new PlayerLayout();
+  private final PlayerLayout playerLayout =;
   private final PlayerRepo playerRepo;
 
   public DialogPlayer(OperationMode mode, PlayerRepo playerRepo) {
     super(mode);
     this.playerRepo = playerRepo;
+    this.playerLayoutProvider = playerLayoutProvider;
 
     initialize();
   }
@@ -21,7 +21,7 @@ public class DialogPlayer extends ActionDialog {
   private void initialize() {
     configureByOperationMode();
 
-    add(playerLayout);
+    add(playerLayoutProvider.getObject());
   }
 
   private void configureByOperationMode() {
@@ -40,15 +40,7 @@ public class DialogPlayer extends ActionDialog {
   private void configureForAddMode() {
     setHeaderTitle("Add new player");
 
-    setAcceptAction(click -> {
-      try {
-        playerRepo.save(playerLayout.getPlayer());
-      } catch (ValidationException e) {
-        new Notification("bbb").open();
-      }
-
-      new Notification("Suer").open();
-    });
+    setAcceptAction(click -> playerRepo.save(playerLayout.getPlayer()));
   }
 
   private void configureForOpenMode() {
